@@ -17,10 +17,17 @@ from oauth2client.tools import argparser, run_flow
 import argparse
 from urllib.parse import urlparse
 from urllib import parse
+import warnings
 
 
 #Sentiment analysis
 from textblob import TextBlob
+
+DEBUG = False
+
+
+if not DEBUG:
+  warnings.filterwarnings('ignore')
 
 
 #Argument parsing
@@ -149,7 +156,7 @@ def comment_threads_list_by_video_id(service, **kwargs):
         negative += 1
 
   sentiment = sentiment / len(results['items'])
-  print('Average sentiment: ' + str(sentiment))  
+  print('\n\nAverage sentiment: ' + str(sentiment))  
 
   labels = ['Positive', 'Negative']
   values = [positive,negative]
