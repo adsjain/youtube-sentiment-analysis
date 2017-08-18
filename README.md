@@ -12,4 +12,4 @@ Moreover, you have to install the following libraries (you can use `pip`):
 
 
 # Usage
-`python sentiment.py <*link_to_youtube_video*>`
+`python sentiment.py <link_to_youtube_video>`
