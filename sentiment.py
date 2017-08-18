@@ -14,9 +14,28 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
+import argparse
+from urllib.parse import urlparse
+from urllib import parse
+
 
 #Sentiment analysis
 from textblob import TextBlob
+
+
+#Argument parsing
+parser = argparse.ArgumentParser()
+parser.add_argument("link", help="The link for the Youtube video.", type=str)
+
+args = parser.parse_args()
+link = args.link
+
+url_data = urlparse(link)
+query = parse.parse_qs(url_data.query)
+VIDEOID = query["v"][0]
+
+print("id:" + VIDEOID)
+
 
 # The CLIENT_SECRETS_FILE variable specifies the name of a file that contains
 # the OAuth 2.0 information for this application, including its client_id and
@@ -50,7 +69,8 @@ def get_authenticated_service(args):
       http=credentials.authorize(httplib2.Http()))
 
 
-args = argparser.parse_args()
+#args = argparser.parse_args()
+args = []
 service = get_authenticated_service(args)
 
 def print_results(results):
@@ -104,8 +124,6 @@ def remove_empty_kwargs(**kwargs):
   return good_kwargs
 
 ### END BOILERPLATE CODE
-
-VIDEOID = 'QwIU7iUfhow'
 
 import plotly as py
 import plotly.graph_objs as go
