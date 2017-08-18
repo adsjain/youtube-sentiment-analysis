@@ -31,11 +31,9 @@ args = parser.parse_args()
 link = args.link
 
 url_data = urlparse(link)
-query = parse.parse_qs(url_data.query)
+query = parse.parse_qs(url_data.query, strict_parsing=True)
+
 VIDEOID = query["v"][0]
-
-print("id:" + VIDEOID)
-
 
 # The CLIENT_SECRETS_FILE variable specifies the name of a file that contains
 # the OAuth 2.0 information for this application, including its client_id and
@@ -155,8 +153,10 @@ def comment_threads_list_by_video_id(service, **kwargs):
 
   labels = ['Positive', 'Negative']
   values = [positive,negative]
+  colors = ['#00E64D', '#B72222']
 
-  trace = go.Pie(labels=labels, values=values)
+  trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors, 
+                           line=dict(color='#FFFFFF', width=0)))
 
   py.offline.plot([trace], filename='yt_sentiment')
 
